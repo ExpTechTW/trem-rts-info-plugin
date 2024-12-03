@@ -47,8 +47,8 @@ class Plugin {
       pluginId: "rts-info",
       htmlPath: `${info.pluginDir}/rts-info/web/index.html`,
       options: {
-        width: 800,
-        height: 600,
+        width: 600,
+        height: 400,
         title: "RTS Info 視窗",
       },
     });
