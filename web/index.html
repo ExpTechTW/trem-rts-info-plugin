@@ -1,37 +1,39 @@
+<!DOCTYPE html>
 <html lang="zh-Hant">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTS 監控面板</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/index.js" defer></script>
 </head>
 
-<body style="user-select: none;">
+<body>
     <main>
         <div id="app">
             <div class="server-box">
-                <span class="server-title" id="core_raw_name"></span>
+                <span class="server-title">RTS 狀態</span>
+                <span class="server-subtitle" id="rts_time">0000-00-00 00:00:00</span>
                 <div class="server-content">
                     <div class="container">
-                        <div class="info-box">
+                        <div class="info-box" draggable="true">
                             <span class="info-box-title">RTS Server</span>
-                            <span class="info-box-body abnormal" id="core_rts_taipei"></span>
+                            <span class="info-box-body abnormal" id="rts_stats">離線</span>
                         </div>
-                        <div class="info-box">
+                        <div class="info-box" draggable="true">
                             <span class="info-box-title" id="core_freeze_taipei_check">凍結測站列表</span>
-                            <span class="info-box-body abnormal" style="display: none;"
-                                id="core_freeze_status_taipei"></span>
+                            <span class="info-box-body abnormal" id="core_freeze_status_taipei"></span>
                             <ul class="scrollable-list" id="core_freeze_taipei"></ul>
                         </div>
-                        <div class="info-box">
+                        <div class="info-box" draggable="true">
                             <span class="info-box-title" id="core_disconnect_taipei_check">斷線測站列表</span>
-                            <span class="info-box-body abnormal" style="display: none;"
-                                id="core_disconnect_status_taipei"></span>
+                            <span class="info-box-body abnormal" id="core_disconnect_status_taipei"></span>
                             <ul class="scrollable-list" id="core_disconnect_taipei"></ul>
                         </div>
-                        <div class="info-box">
+                        <div class="info-box" draggable="true">
                             <span class="info-box-title">線上測站數量</span>
-                            <span class="info-box-body" id="core_rts_online_taipei">- / -</span>
+                            <span class="info-box-body" id="rts_online">- / -</span>
                         </div>
                     </div>
                 </div>

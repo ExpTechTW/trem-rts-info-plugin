@@ -44,13 +44,23 @@ class Plugin {
     this.config = this.#config.getConfig(this.name);
 
     ipcRenderer.send("open-plugin-window", {
-      pluginId: "rts-info",
+      pluginId: this.name,
       htmlPath: `${info.pluginDir}/rts-info/web/index.html`,
       options: {
-        width: 600,
-        height: 400,
-        title: "RTS Info 視窗",
+        minWidth: 400,
+        minHeight: 300,
+        title: "RTS 監控面板",
       },
+    });
+
+    const event = (event, callback) => TREM.variable.events.on(event, callback);
+
+    event("DataRts", (ans) => {
+      ipcRenderer.send("send-to-plugin-window", {
+        windowId: this.name,
+        channel: "DataRts",
+        payload: ans,
+      });
     });
   }
 }
