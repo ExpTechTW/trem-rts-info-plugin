@@ -27,7 +27,7 @@ class Plugin {
   }
 
   onLoad() {
-    const { Logger, info } = this.#ctx;
+    const { Logger, info, utils } = this.#ctx;
 
     const { CustomLogger } =
       require("../logger/logger").createCustomLogger(Logger);
@@ -39,7 +39,7 @@ class Plugin {
     );
     const configDir = path.join(info.pluginDir, "./rts-info/config.yml");
 
-    this.#config = new config(this.name, this.logger, defaultDir, configDir);
+    this.#config = new config(this.name, this.logger, utils.fs, defaultDir, configDir);
 
     this.config = this.#config.getConfig(this.name);
 
@@ -49,6 +49,7 @@ class Plugin {
       options: {
         minWidth: 400,
         minHeight: 300,
+        height: 990,
         title: "RTS 監控面板",
       },
     });
