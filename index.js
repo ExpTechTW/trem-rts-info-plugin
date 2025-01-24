@@ -27,7 +27,7 @@ class Plugin {
   }
 
   onLoad() {
-    const { Logger, info, utils } = this.#ctx;
+    const { TREM, Logger, info, utils } = this.#ctx;
 
     const { CustomLogger } =
       require("../logger/logger").createCustomLogger(Logger);
@@ -63,6 +63,14 @@ class Plugin {
         payload: ans,
       });
     });
+
+    setInterval(async () => {
+      ipcRenderer.send("send-to-plugin-window", {
+        windowId: this.name,
+        channel: "play_mode",
+        payload: TREM.variable.play_mode,
+      });
+    }, 0);
   }
 }
 

@@ -1,9 +1,10 @@
 {
-  "timestamp": 1736175792449,
-  "version": "1.0.1",
+  "timestamp": 1737743265402,
+  "version": "1.0.2",
   "fileHashes": {
-    "index.js": "a030bcb96e02e586d2add210109e70fed8481b289efbae75dcbb28a5ea4b49d1",
-    "info.json": "c5b5f8d9df415646708cdb16eb711d8e24673e0357bb9ced635076f53963f7a1",
+    "config.yml": "73a6eb7e322e82b108b1ca18ca159a430a36c219a501847ca6504f424c55baf7",
+    "index.js": "895477e6666d07e74f5445f505095f3d352aeba411407b666d359680e9acbd8c",
+    "info.json": "1d68338a4fd64604b83e43f635026793bef9c5839326600dc01d3ff19d75cc97",
     "resource/default.yml": "73a6eb7e322e82b108b1ca18ca159a430a36c219a501847ca6504f424c55baf7",
     "web/css/index.css": "aaa35f691c65477c00f7c3c3839e2541f6b95e99560dfc837a3c010faf330492",
     "web/css/stationList.css": "74ab3b36aa76d9419a2c2ee73d464f6533381ff7d7e37ce420bf2452bc146750",
@@ -13,12 +14,12 @@
     "web/js/chartConfig.js": "0076196664484bc5a495d8830643c1e31792fe904b34c93ab39247b35a7d5f4d",
     "web/js/index.js": "68b4b3d26fb595e848146ac723f134e0968ed2456317503300987d18c7d53c1d",
     "web/js/nav.js": "9f7c1e0226b8b6cffd3d46d791166651e8c2c1e7081a8c8cf4911cac54b6eb1e",
-    "web/js/rts.js": "9f5135df45e4a502164ee209eb37e531d3bb1e0d7f11bc4a503c8e8085dc24d3",
+    "web/js/rts.js": "681e5032025c58b4769eba15ee1e5d08bd2f9deb647c726b86f98eb66ca1a1ac",
     "web/js/stationList.js": "0c5f52fba02a26f21d8f65873df5fd0d6d66b6e1cb4c1a7381306f47677187a7",
     "web/js/timeUtils.js": "eb19b973d5a6dd2dc40e116fb12a144c7026757a1619b391f45820977d8c4533",
     "web/js/toast.js": "14dbf4caa581438c041119250f34bba3e0868dcff70330d0ea7c536d714eb3d8",
     "web/resource/js/echarts.js": "4ff1bfa8176d508c2c654960111ae00044fe891358c0c7b692a92698357011b0",
     "web/resource/region_v2.json": "1e6837a1d099e866a327c521ee539fa29b3e4454d4d3cfe2046a74b6baaa0652"
   },
-  "signature": "CNtFbQL1VAlNpQa3lM2VhN652ZxzkgYaqm6f4I2qbluY1r+gNZH63oGyfyhEtbYXSpzdqHTOixQdoiMzTVOgBrnU86AJHaruPOeUAVMk+BdkSrRqJnfkDRkbB+dZJlzzftLGI2RnOnBRhNFd2r1rRe16bvNw2vlR1F0x04MHERIqVfdwUcVO6GljtfYjOBiPrYVRpYK1xhoqlw+FMg69SrYIGnitd7NOwyQOJlhJ9yEPa/r9OuJQ3E+7Vt7hxfwAcaw+EYNrTMlcG1MbYKYTdjxg36jtC812vOsyvvurd0bAuHHhGL15zvHJj7pFzuBiFo0G0WaM1Zpy6yr+/gIwTA=="
+  "signature": "cwNShFzrGwGyuv7jK64kkigvE3X6dhc4dXwIWWJEZR4TT9ksxBSap5GOM0dkwzkPYTyDBJbHjVELpKy5VYwz8ox0pZGS2dGXO4V5UZ4dhzpHEJQxckq5lLw4FIwJ4BuQTbeRRo3K5+ZtsCj7vKGt2QIMwXm9EAUTTq97W2yWud4SgEib8KCiIYWxlQ+wrftgCQhwf6iFqdFocXxgsuFexZ4ukGCKtq+R2mDUBp+gNOFMVVYnebbCD+P0zMFEGyKQYzlFOtSLgDD0jjXbQsCjtKlqF8gmiqC7qpngPl4eTqtBIuy2ODQMx7cCy9lMl8+o3TQTbKlDtG3pNWSkXraSFg=="
 }

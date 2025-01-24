@@ -240,6 +240,16 @@ ipcRenderer.on("DataRts", (event, ans) => {
   rts_time.textContent = formatTime(rts_time_num);
 });
 
+let play_mode_name = "HTTP";
+
+ipcRenderer.on("play_mode", (event, ans) => {
+  if (ans == 0) {
+    play_mode_name = "HTTP";
+  } else if (ans == 1) {
+    play_mode_name = "websocket";
+  }
+});
+
 function formatTime(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
@@ -343,15 +353,15 @@ setInterval(() => {
   lag = Date.now() - rts_time_num;
   if (lag > 6000) {
     if (rts_off_time_num == 0) {
-      rts_stats.textContent = "離線";
+      rts_stats.textContent = `離線 | (${play_mode_name})`;
       rts_stats.className = "info-box-body abnormal";
       rts_off_time_num = Date.now();
     } else {
-      rts_stats.textContent = `離線 | ${formatTimeDifference(Date.now() - rts_off_time_num)}`;
+      rts_stats.textContent = `離線 | (${play_mode_name}) ${formatTimeDifference(Date.now() - rts_off_time_num)}`;
       rts_stats.className = "info-box-body abnormal";
     }
   } else {
-    rts_stats.textContent = "上線";
+    rts_stats.textContent = `上線 | (${play_mode_name})`;
     rts_stats.className = "info-box-body normal";
     rts_off_time_num = 0;
   }
