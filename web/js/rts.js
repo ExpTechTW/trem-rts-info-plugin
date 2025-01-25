@@ -19,8 +19,7 @@ const lag_time = document.getElementById("lag_time");
 const rts_freeze_auto = document.getElementById("rts_freeze_auto");
 const rts_freeze_list = document.getElementById("rts_freeze_list");
 const rts_freeze = document.getElementById("rts_freeze");
-
-
+const rts_alert = document.getElementById("rts_alert");
 
 const core_freeze_taipei_check = document.getElementById("core_freeze_taipei_check");
 
@@ -51,7 +50,8 @@ core_disconnect_taipei_check.addEventListener("click", () => {
 const charts = [
 	echarts.init(document.getElementById("wave-1"), null, { height: 100, width: 300, renderer: "svg" }),
 	echarts.init(document.getElementById("wave-2"), null, { height: 100, width: 300, renderer: "svg" }),
-  echarts.init(document.getElementById("wave-3"), null, { height: 100, width: 300, renderer: "svg" })
+  echarts.init(document.getElementById("wave-3"), null, { height: 100, width: 300, renderer: "svg" }),
+  echarts.init(document.getElementById("wave-4"), null, { height: 100, width: 300, renderer: "svg" })
 ];
 for (let i = 0, j = charts.length; i < j; i++) {
   charts[i].setOption({
@@ -87,6 +87,7 @@ for (let i = 0, j = charts.length; i < j; i++) {
 const chartdata = [
 	[],
   [],
+  [],
   []
 ];
 
@@ -113,6 +114,8 @@ let freeze_station = {};
 ipcRenderer.on("DataRts", (event, ans) => {
   const data = ans.data;
 
+  let trigger = 0;
+
   let rts_off_num = 0;
   let rts_all_num = 0;
   let rts_online_num = 0;
@@ -126,7 +129,11 @@ ipcRenderer.on("DataRts", (event, ans) => {
     for (let i = 0, i_ks = Object.keys(data.station), j = i_ks.length; i < j; i++) {
       const online_station_id = i_ks[i];
       delete off_station[online_station_id];
+      if (data.station[online_station_id].alert) {
+        trigger++;
+      }
     }
+    rts_alert.textContent = trigger;
   }
 
   rts_freeze_num = Object.keys(freeze_station).length;
@@ -230,9 +237,15 @@ ipcRenderer.on("DataRts", (event, ans) => {
     value : [data.time, rts_freeze_num],
   });
 
+  chartdata[3].push({
+    name  : Date.now(),
+    value : [data.time, trigger],
+  });
+
   chartdata[0] = limitDataPoints(chartdata[0]);
   chartdata[1] = limitDataPoints(chartdata[1]);
   chartdata[2] = limitDataPoints(chartdata[2]);
+  chartdata[3] = limitDataPoints(chartdata[3]);
 
   charts[0].setOption({
     animation : false,
@@ -281,6 +294,23 @@ ipcRenderer.on("DataRts", (event, ans) => {
         showSymbol : false,
         data  : chartdata[2],
         color : "rgb(255, 251, 0)",
+      },
+    ],
+  });
+
+  charts[3].setOption({
+    animation : false,
+    yAxis     : {
+      max : (rts_off_hight_num + 30),
+      min : (rts_off_low_num - 30),
+    },
+    series: [
+      {
+        name  : '觸發測站數量',
+        type  : "line",
+        showSymbol : false,
+        data  : chartdata[3],
+        color : "rgb(0, 26, 255)",
       },
     ],
   });
