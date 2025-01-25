@@ -42,9 +42,17 @@
                             <span class="info-box-body" id="rts_all">- / -</span>
                         </div>
                         <div class="info-box" draggable="true">
+                            <span class="info-box-title">當前自動凍結數量</span>
+                            <span class="info-box-body" id="rts_freeze_auto">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">當前手動凍結數量</span>
+                            <span class="info-box-body" id="rts_freeze_list">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
                             <span class="info-box-title" id="core_freeze_taipei_check">凍結測站列表</span>
                             <span class="info-box-body abnormal" id="core_freeze_status_taipei"></span>
-                            <!-- <ul class="scrollable-list" id="core_freeze_taipei"></ul> -->
+                            <ul class="scrollable-list" id="core_freeze_taipei"></ul>
                         </div>
                         <div class="info-box" draggable="true">
                             <span class="info-box-title" id="core_disconnect_taipei_check">斷線測站列表</span>
@@ -58,6 +66,22 @@
                         <div class="info-box" draggable="true">
                             <span class="info-box-title">當前斷線測站數量</span>
                             <span class="info-box-body" id="rts_off">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">當前凍結測站數量</span>
+                            <span class="info-box-body" id="rts_freeze">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">凍結測站數量</span>
+                            <div id="wave-3"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">上線測站數量</span>
+                            <div id="wave-1"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">斷線測站數量</span>
+                            <div id="wave-2"></div>
                         </div>
                         <div class="info-box" draggable="true">
                             <span class="info-box-title">最高線上測站數量</span>
@@ -74,14 +98,6 @@
                         <div class="info-box" draggable="true">
                             <span class="info-box-title">最高斷線測站數量</span>
                             <span class="info-box-body" id="rts_off_hight">- / -</span>
-                        </div>
-                        <div class="info-box" draggable="true">
-                            <span class="info-box-title">上線測站數量</span>
-                            <div id="wave-1"></div>
-                        </div>
-                        <div class="info-box" draggable="true">
-                            <span class="info-box-title">斷線測站數量</span>
-                            <div id="wave-2"></div>
                         </div>
                     </div>
                 </div>

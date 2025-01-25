@@ -16,6 +16,24 @@ const rts_stats = document.getElementById("rts_stats");
 const rts_time = document.getElementById("rts_time");
 const local_time = document.getElementById("local_time");
 const lag_time = document.getElementById("lag_time");
+const rts_freeze_auto = document.getElementById("rts_freeze_auto");
+const rts_freeze_list = document.getElementById("rts_freeze_list");
+const rts_freeze = document.getElementById("rts_freeze");
+
+
+
+const core_freeze_taipei_check = document.getElementById("core_freeze_taipei_check");
+
+core_freeze_taipei_check.addEventListener("click", () => {
+  const freezeList = document.getElementById('core_freeze_taipei');
+  freezeList.classList.toggle('expanded');
+
+  if (freezeList.classList.contains('expanded')) {
+    freezeList.style.maxHeight = freezeList.scrollHeight + "px";
+  } else {
+    freezeList.style.maxHeight = "150px";
+  }
+});
 
 const core_disconnect_taipei_check = document.getElementById("core_disconnect_taipei_check");
 
@@ -32,7 +50,8 @@ core_disconnect_taipei_check.addEventListener("click", () => {
 
 const charts = [
 	echarts.init(document.getElementById("wave-1"), null, { height: 100, width: 300, renderer: "svg" }),
-  echarts.init(document.getElementById("wave-2"), null, { height: 100, width: 300, renderer: "svg" })
+	echarts.init(document.getElementById("wave-2"), null, { height: 100, width: 300, renderer: "svg" }),
+  echarts.init(document.getElementById("wave-3"), null, { height: 100, width: 300, renderer: "svg" })
 ];
 for (let i = 0, j = charts.length; i < j; i++) {
   charts[i].setOption({
@@ -67,6 +86,7 @@ for (let i = 0, j = charts.length; i < j; i++) {
 }
 const chartdata = [
 	[],
+  [],
   []
 ];
 
@@ -87,6 +107,7 @@ let rts_online_hight_time = "";
 let work_station = {};
 let station_temp = {};
 let off_station = {};
+let freeze_station = {};
 
 
 ipcRenderer.on("DataRts", (event, ans) => {
@@ -95,6 +116,7 @@ ipcRenderer.on("DataRts", (event, ans) => {
   let rts_off_num = 0;
   let rts_all_num = 0;
   let rts_online_num = 0;
+  let rts_freeze_num = 0;
 
   rts_all_num = Object.keys(work_station).length;
 
@@ -104,6 +126,17 @@ ipcRenderer.on("DataRts", (event, ans) => {
     for (let i = 0, i_ks = Object.keys(data.station), j = i_ks.length; i < j; i++) {
       const online_station_id = i_ks[i];
       delete off_station[online_station_id];
+    }
+  }
+
+  rts_freeze_num = Object.keys(freeze_station).length;
+
+  if (rts_freeze_num != 0) {
+    const rts_freeze_percentage = ((rts_freeze_num / rts_all_num) * 100).toFixed(1);
+    rts_freeze.textContent = `${rts_freeze_num} (${rts_freeze_percentage}%)`;
+    for (let i = 0, i_ks = Object.keys(freeze_station), j = i_ks.length; i < j; i++) {
+      const freeze_station_id = i_ks[i];
+      delete off_station[freeze_station_id];
     }
   }
 
@@ -192,8 +225,14 @@ ipcRenderer.on("DataRts", (event, ans) => {
     value : [data.time, rts_off_num],
   });
 
+  chartdata[2].push({
+    name  : Date.now(),
+    value : [data.time, rts_freeze_num],
+  });
+
   chartdata[0] = limitDataPoints(chartdata[0]);
   chartdata[1] = limitDataPoints(chartdata[1]);
+  chartdata[2] = limitDataPoints(chartdata[2]);
 
   charts[0].setOption({
     animation : false,
@@ -225,6 +264,23 @@ ipcRenderer.on("DataRts", (event, ans) => {
         showSymbol : false,
         data  : chartdata[1],
         color : "rgb(255, 0, 0)",
+      },
+    ],
+  });
+
+  charts[2].setOption({
+    animation : false,
+    yAxis     : {
+      max : (rts_off_hight_num + 30),
+      min : (rts_off_low_num - 30),
+    },
+    series: [
+      {
+        name  : '凍結測站數量',
+        type  : "line",
+        showSymbol : false,
+        data  : chartdata[2],
+        color : "rgb(255, 251, 0)",
       },
     ],
   });
@@ -365,8 +421,83 @@ setInterval(() => {
     rts_stats.className = "info-box-body normal";
     rts_off_time_num = 0;
   }
-}, 0);
+}, 500);
+
+async function get_freeze_info() {
+  const API = ['api-1.exptech.dev', 'api-2.exptech.dev']
+  const url = API[Math.floor(Math.random() * API.length)];
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 1500);
+  await fetch(`https://${url}/api/v1/trem/freeze/list`, { signal: controller.signal, cache: "no-cache" })
+  .then((ans) => {
+    clearTimeout(timeoutId);
+    if (!ans || !ans.ok) {
+      return;
+    }
+    ans.json().then((ansjson) => {
+      // console.log(ansjson);
+
+      const freezeList = document.getElementById('core_freeze_taipei');
+      freezeList.innerHTML = '';
+
+      if (Object.keys(freeze_station).length != 0) freeze_station = {};
+
+      const rts_freeze_auto_num = ansjson.auto.length;
+
+      if (rts_freeze_auto_num != 0) {
+        rts_freeze_auto.textContent = rts_freeze_auto_num;
+        for (let i = 0, i_ks = ansjson.auto, j = i_ks.length; i < j; i++) {
+          const auto_station_id = i_ks[i];
+          freeze_station[auto_station_id] = work_station[auto_station_id];
+
+          const station_new_id = work_station[auto_station_id]?.id ?? auto_station_id;
+          const station_Loc = work_station[auto_station_id]?.Loc ?? "未知";
+          const station_text = `${station_new_id} ${station_Loc} (自動)`;
+
+          const li = document.createElement('li');
+          li.textContent = station_text;
+          li.className = 'station-info';
+          li.addEventListener("click", () => {
+            navigator.clipboard.writeText(auto_station_id).then(() => {
+              // console.debug(station_text);
+              // console.debug("複製成功");
+              showToast(`${auto_station_id} 複製成功`);
+            });
+          });
+          freezeList.appendChild(li);
+        }
+      }
+
+      const rts_freeze_list_num = ansjson.list.length;
+
+      if (rts_freeze_list_num != 0) {
+        rts_freeze_list.textContent = rts_freeze_list_num;
+        for (let i = 0, i_ks = ansjson.list, j = i_ks.length; i < j; i++) {
+          const list_station_id = i_ks[i];
+          freeze_station[list_station_id] = work_station[list_station_id];
+
+          const station_new_id = work_station[list_station_id]?.id ?? list_station_id;
+          const station_Loc = work_station[list_station_id]?.Loc ?? "未知";
+          const station_text = `${station_new_id} ${station_Loc} (手動)`;
+
+          const li = document.createElement('li');
+          li.textContent = station_text;
+          li.className = 'station-info';
+          li.addEventListener("click", () => {
+            navigator.clipboard.writeText(list_station_id).then(() => {
+              // console.debug(station_text);
+              // console.debug("複製成功");
+              showToast(`${list_station_id} 複製成功`);
+            });
+          });
+          freezeList.appendChild(li);
+        }
+      }
+    });
+  });
+}
 
 setInterval(() => {
+  get_freeze_info();
   lag_time.textContent = `${formatTimeDifference(lag)} (${lag} ms)`;
 }, 1000);
