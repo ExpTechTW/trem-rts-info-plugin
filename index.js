@@ -69,7 +69,7 @@ class Plugin {
     const focusButton = document.querySelector("#focus");
     if (focusButton) {
       const button = document.createElement("div");
-      button.id = "websocket";
+      button.id = "rtsinfo";
       button.className = "nav-bar-location";
       button.title = "RTS 監控面板";
       button.innerHTML = `
@@ -79,7 +79,7 @@ class Plugin {
   }
 
   addClickEvent(info) {
-    const button = document.querySelector("#websocket");
+    const button = document.querySelector("#rtsinfo");
     button.addEventListener("click", () => {
       ipcRenderer.send("open-plugin-window", {
         pluginId: this.name,

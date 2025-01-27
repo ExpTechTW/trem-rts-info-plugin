@@ -110,6 +110,19 @@ let station_temp = {};
 let off_station = {};
 let freeze_station = {};
 
+let play_mode_name = "HTTP";
+let play_mode_num = 0;
+
+ipcRenderer.on("play_mode", (event, ans) => {
+  play_mode_num = ans;
+  if (ans == 0) {
+    play_mode_name = "HTTP";
+  } else if (ans == 1) {
+    play_mode_name = "websocket";
+  } else if (ans == 2) {
+    play_mode_name = "HTTP (重播)";
+  }
+});
 
 ipcRenderer.on("DataRts", (event, ans) => {
   const data = ans.data;
@@ -224,22 +237,22 @@ ipcRenderer.on("DataRts", (event, ans) => {
 
   chartdata[0].push({
     name  : Date.now(),
-    value : [data.time, rts_online_num],
+    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_online_num],
   });
 
   chartdata[1].push({
     name  : Date.now(),
-    value : [data.time, rts_off_num],
+    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_off_num],
   });
 
   chartdata[2].push({
     name  : Date.now(),
-    value : [data.time, rts_freeze_num],
+    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_freeze_num],
   });
 
   chartdata[3].push({
     name  : Date.now(),
-    value : [data.time, trigger],
+    value : [(play_mode_num == 2 ? Date.now() : data.time), trigger],
   });
 
   chartdata[0] = limitDataPoints(chartdata[0]);
@@ -301,8 +314,8 @@ ipcRenderer.on("DataRts", (event, ans) => {
   charts[3].setOption({
     animation : false,
     yAxis     : {
-      max : (rts_off_hight_num + 30),
-      min : (rts_off_low_num - 30),
+      max : (trigger + 30),
+      min : (trigger - 30),
     },
     series: [
       {
@@ -324,16 +337,6 @@ ipcRenderer.on("DataRts", (event, ans) => {
 
   rts_time_num = data.time;
   rts_time.textContent = formatTime(rts_time_num);
-});
-
-let play_mode_name = "HTTP";
-
-ipcRenderer.on("play_mode", (event, ans) => {
-  if (ans == 0) {
-    play_mode_name = "HTTP";
-  } else if (ans == 1) {
-    play_mode_name = "websocket";
-  }
 });
 
 function formatTime(timestamp) {
@@ -437,7 +440,7 @@ setInterval(get_station_info, 600000);
 setInterval(() => {
   local_time.textContent = formatTime(Date.now());
   lag = Date.now() - rts_time_num;
-  if (lag > 6000) {
+  if (lag > 6000 && play_mode_name != "HTTP (重播)") {
     if (rts_off_time_num == 0) {
       rts_stats.textContent = `離線 | (${play_mode_name})`;
       rts_stats.className = "info-box-body abnormal";
