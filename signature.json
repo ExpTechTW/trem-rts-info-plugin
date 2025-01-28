@@ -1,5 +1,5 @@
 {
-  "timestamp": 1738046482785,
+  "timestamp": 1738047717796,
   "version": "1.0.2",
   "fileHashes": {
     "config.yml": "73a6eb7e322e82b108b1ca18ca159a430a36c219a501847ca6504f424c55baf7",
@@ -10,7 +10,7 @@
     "web/css/index.css": "aaa35f691c65477c00f7c3c3839e2541f6b95e99560dfc837a3c010faf330492",
     "web/css/stationList.css": "74ab3b36aa76d9419a2c2ee73d464f6533381ff7d7e37ce420bf2452bc146750",
     "web/css/toast.css": "f2555beb5e21ba66a99d6ce244c4c68df11fc3302ff139f88a21ad912e9bef92",
-    "web/index.html": "63f512271e04b5997895eda32d9c451c72d90138f59044045fdfd33fa4549f87",
+    "web/index.html": "29167d3612d7d3905c20c9554f321f5af0e21ca76850340ebfa9ffe1a4dcc660",
     "web/js/box.js": "89c611e48c3417a503be6a482f4cf4e6d154fb8e5de7bf6a2565c955949bb740",
     "web/js/chartConfig.js": "0076196664484bc5a495d8830643c1e31792fe904b34c93ab39247b35a7d5f4d",
     "web/js/index.js": "68b4b3d26fb595e848146ac723f134e0968ed2456317503300987d18c7d53c1d",
@@ -22,6 +22,6 @@
     "web/resource/js/echarts.js": "4ff1bfa8176d508c2c654960111ae00044fe891358c0c7b692a92698357011b0",
     "web/resource/region_v2.json": "1e6837a1d099e866a327c521ee539fa29b3e4454d4d3cfe2046a74b6baaa0652"
   },
-  "signature": "qq91R7B1IM6Qw6nKF8wzX6l0KkdaYewwrhc2Dtd2LOGk/J73XIFQ19Hm4c31sfRZAe8rPL6gGUc5pZqtW1VgS0kMZbOlhjohz0T6s527+foZJIoqH496uHsNA1fX4YVpLc4/MdtRfbhbOYhRjhcdrICRrsgMWvbImW5baEH7PFKZs3GPytIK6X05KeJjYxCIsndCHyY9FcsQ0LcMeRGmjpaD8779+lBgigmBhpYVUXjLmiMai42wBq+j13hFWeY1n59Gt9qhVcnc9oJcWgnPQtU3Mzch+LlbvFhx5ebd2qQxTIu/Z1SkCadGoX7WHVDwEuGhK6qyAjVpp4Ilcy/PBw==",
+  "signature": "lXkyjuT2ted8vVQpghjkZ1CXUCSMjQNU1AT9K9TMUiL5JOjtgVxzaG+TZsHEuOGohU3FNnHt6iYS3UdSfZoBhsx0k293QNoXxSinF8sQP5uREKnCzQXkbWScubYcI+xbkoN58k7U7ObTxIC7NXvsaTGO30/2nXsX0kxYg4+ozyHzZpuJJ7G70tOOWZCt1yrN4qGjsZ4V4L2bDJtOOC+o3CgWESqP5X7zcLEPK4NLbbJQLHHzOEYHUSMDdCjAnHcjNk2DtitMmcl2RUYc4E+R1/bIfhjYvJrO0vUYJ06hwGPM2tMP8pmi5+1JcJTrfP2/LYVgeV/9UFdNX03ND64hqg==",
   "keyId": "official"
 }
