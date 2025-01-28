@@ -146,7 +146,8 @@ ipcRenderer.on("DataRts", (event, ans) => {
         trigger++;
       }
     }
-    rts_alert.textContent = trigger;
+    const rts_alert_percentage = ((trigger / rts_all_num) * 100).toFixed(1);
+    rts_alert.textContent = `${trigger} (${rts_alert_percentage}%)`;
   }
 
   rts_freeze_num = Object.keys(freeze_station).length;
