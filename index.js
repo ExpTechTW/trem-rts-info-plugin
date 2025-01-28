@@ -53,6 +53,21 @@ class Plugin {
       });
     });
 
+    event("IntensityRelease", (ans) => {
+      ipcRenderer.send("send-to-plugin-window", {
+        windowId: this.name,
+        channel: "showIntensity",
+        payload: ans,
+      });
+    });
+    event("IntensityUpdate", (ans) => {
+      ipcRenderer.send("send-to-plugin-window", {
+        windowId: this.name,
+        channel: "showIntensity",
+        payload: ans,
+      });
+    });
+
     setInterval(async () => {
       ipcRenderer.send("send-to-plugin-window", {
         windowId: this.name,

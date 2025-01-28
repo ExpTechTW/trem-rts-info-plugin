@@ -21,6 +21,8 @@ const rts_freeze_list = document.getElementById("rts_freeze_list");
 const rts_freeze = document.getElementById("rts_freeze");
 const rts_alert = document.getElementById("rts_alert");
 
+const core_eew_real_taipei = document.getElementById("core_eew_real_taipei");
+
 const core_freeze_taipei_check = document.getElementById("core_freeze_taipei_check");
 
 core_freeze_taipei_check.addEventListener("click", () => {
@@ -139,6 +141,7 @@ ipcRenderer.on("DataRts", (event, ans) => {
   if (rts_all_num != 0) {
     rts_all.textContent = rts_all_num;
     off_station = Object.assign({}, work_station);
+    if (!data.station) return;
     for (let i = 0, i_ks = Object.keys(data.station), j = i_ks.length; i < j; i++) {
       const online_station_id = i_ks[i];
       delete off_station[online_station_id];
@@ -338,6 +341,32 @@ ipcRenderer.on("DataRts", (event, ans) => {
 
   rts_time_num = data.time;
   rts_time.textContent = formatTime(rts_time_num);
+
+  const keysAsNumbers = Object.values(data.box).map(Number);
+  const maxKey = Math.max(...keysAsNumbers);
+  if (maxKey != -Infinity) {
+    core_eew_real_taipei.textContent = "";
+    core_eew_real_taipei.className = `intensity-box intensity-${maxKey}`;
+  } else {
+    core_eew_real_taipei.className = "intensity-null";
+    core_eew_real_taipei.textContent = "未觀測到任何震動";
+  }
+});
+
+core_eew_real_taipei.textContent = "未觀測到任何震動";
+const core_intensity_taipei = document.getElementById("core_intensity_taipei");
+core_intensity_taipei.textContent = "目前沒有 震度速報 資訊";
+
+ipcRenderer.on("showIntensity", (event, ans) => {
+  const data = ans.data;
+
+  core_intensity_taipei.textContent = "";
+  core_intensity_taipei.className = `intensity-box intensity-${data.max}`;
+
+  setTimeout(() => {
+    core_intensity_taipei.className = "intensity-null";
+    core_intensity_taipei.textContent = "目前沒有 震度速報 資訊";
+  }, 60000);
 });
 
 function formatTime(timestamp) {
