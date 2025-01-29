@@ -93,6 +93,18 @@ const chartdata = [
   []
 ];
 
+const constant = {
+  intensity_1 : new Audio("./audio/intensity-1.wav"),
+  intensity_2 : new Audio("./audio/intensity-2.wav"),
+  intensity_3 : new Audio("./audio/intensity-3.wav"),
+  intensity_4 : new Audio("./audio/intensity-4.wav"),
+  intensity_5 : new Audio("./audio/intensity-5.wav"),
+  intensity_6 : new Audio("./audio/intensity-6.wav"),
+  intensity_7 : new Audio("./audio/intensity-7.wav"),
+  intensity_8 : new Audio("./audio/intensity-8.wav"),
+  intensity_9 : new Audio("./audio/intensity-9.wav"),
+};
+
 let rts_time_num = 0;
 let lag = 0;
 let rts_off_time_num = 0;
@@ -141,6 +153,7 @@ ipcRenderer.on("DataRts", (event, ans) => {
   if (rts_all_num != 0) {
     rts_all.textContent = rts_all_num;
     off_station = Object.assign({}, work_station);
+    if (!data) return;
     if (!data.station) return;
     for (let i = 0, i_ks = Object.keys(data.station), j = i_ks.length; i < j; i++) {
       const online_station_id = i_ks[i];
@@ -357,8 +370,17 @@ core_eew_real_taipei.textContent = "未觀測到任何震動";
 const core_intensity_taipei = document.getElementById("core_intensity_taipei");
 core_intensity_taipei.textContent = "目前沒有 震度速報 資訊";
 
+let intensity = 0;
+
 ipcRenderer.on("showIntensity", (event, ans) => {
   const data = ans.data;
+
+  if (data.serial == 1) intensity = 0;
+
+  if (intensity != data.max) {
+    intensity = data.max;
+    constant[`intensity_${data.max}`].play();
+  }
 
   core_intensity_taipei.textContent = "";
   core_intensity_taipei.className = `intensity-box intensity-${data.max}`;
