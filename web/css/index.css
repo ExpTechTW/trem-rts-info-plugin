@@ -34,7 +34,16 @@ body {
   padding: 5px 20px;
   font-size: 12px;
   font-weight: bold;
+  /* border-bottom: 1px solid grey; */
+}
+
+.server-body {
   border-bottom: 1px solid grey;
+}
+
+.server-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .server-content {
@@ -43,7 +52,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
