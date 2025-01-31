@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RTS 監控面板</title>
+    <link rel="stylesheet" href="./css/color.css" />
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/stationList.css" />
+    <link rel="stylesheet" href="./css/toast.css" />
     <script src="./js/index.js" defer></script>
 </head>
 
@@ -13,13 +16,71 @@
     <main>
         <div id="app">
             <div class="server-box">
-                <span class="server-title">RTS 狀態</span>
-                <span class="server-subtitle" id="rts_time">0000-00-00 00:00:00</span>
+                <div class="server-body">
+                    <div class="server-container">
+                        <div>
+                            <span class="server-title">RTS 狀態</span>
+                            <span class="server-subtitle" id="rts_time">0000-00-00 00:00:00</span>
+                        </div>
+                        <div>
+                            <span class="server-title">本機時間</span>
+                            <span class="server-subtitle" id="local_time">0000-00-00 00:00:00</span>
+                        </div>
+                        <div>
+                            <span class="server-title">延遲時間</span>
+                            <span class="server-subtitle" id="lag_time">0</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="server-content">
                     <div class="container">
                         <div class="info-box" draggable="true">
                             <span class="info-box-title">RTS Server</span>
                             <span class="info-box-body abnormal" id="rts_stats">離線</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">總共測站數量</span>
+                            <span class="info-box-body" id="rts_all">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">線上測站數量</span>
+                            <span class="info-box-body" id="rts_online">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">斷線測站數量</span>
+                            <span class="info-box-body" id="rts_off">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">凍結測站數量</span>
+                            <span class="info-box-body" id="rts_freeze">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">觸發測站數量</span>
+                            <span class="info-box-body" id="rts_alert">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">上線測站數量</span>
+                            <div id="wave-1"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">斷線測站數量</span>
+                            <div id="wave-2"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">凍結測站數量</span>
+                            <div id="wave-3"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">觸發測站數量</span>
+                            <div id="wave-4"></div>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">TREM 實測 震度</span>
+                            <span class="intensity-null" id="core_eew_real_taipei">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">TREM 震度速報 震度</span>
+                            <span class="intensity-null" id="core_intensity_taipei">- / -</span>
                         </div>
                         <div class="info-box" draggable="true">
                             <span class="info-box-title" id="core_freeze_taipei_check">凍結測站列表</span>
@@ -32,8 +93,28 @@
                             <ul class="scrollable-list" id="core_disconnect_taipei"></ul>
                         </div>
                         <div class="info-box" draggable="true">
-                            <span class="info-box-title">線上測站數量</span>
-                            <span class="info-box-body" id="rts_online">- / -</span>
+                            <span class="info-box-title">自動凍結數量</span>
+                            <span class="info-box-body" id="rts_freeze_auto">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">手動凍結數量</span>
+                            <span class="info-box-body" id="rts_freeze_list">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">最高線上測站數量</span>
+                            <span class="info-box-body" id="rts_online_hight">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">最低斷線測站數量</span>
+                            <span class="info-box-body" id="rts_off_low">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">最低線上測站數量</span>
+                            <span class="info-box-body" id="rts_online_low">- / -</span>
+                        </div>
+                        <div class="info-box" draggable="true">
+                            <span class="info-box-title">最高斷線測站數量</span>
+                            <span class="info-box-body" id="rts_off_hight">- / -</span>
                         </div>
                     </div>
                 </div>
