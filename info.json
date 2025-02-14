@@ -2,7 +2,8 @@
   "name": "rts-info",
   "version": "1.0.2",
   "description": {
-    "zh_tw": "顯示 rts 相關資訊"
+    "zh_tw": "顯示 rts 相關資訊",
+    "zh-Hant": "顯示 rts 相關資訊"
   },
   "author": ["whes1015","yayacat"],
   "dependencies": {
