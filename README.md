@@ -19,7 +19,7 @@ trem-rts-info-plugin 適用於 TREM-Lite 3.1.0 以上版本。顯示 rts 相關�
 - 首先至 [TREM 擴充](https://exptechtw.github.io/trem-plugins/) 或從 TREM-Lite > 設定 > 擴充 > 擴充商店內進行下載
 - 下載完成後，下載依賴[config](https://github.com/ExpTechTW/trem-config-plugin)和[logger](https://github.com/ExpTechTW/trem-logger-plugin)
 - 下載完成後，重新開啟設定頁面
-- 在擴充列表的 rts-info 進行勾選，關閉設定頁面
+- 在擴充列表的 rts-info 進行勾選，如果依賴沒勾選也進行勾選，關閉設定頁面
 - 在主頁點擊 提示說明(RTS 監控面板)圖案 按鈕，點開即可使用
 
 ## 開放原始碼授權
