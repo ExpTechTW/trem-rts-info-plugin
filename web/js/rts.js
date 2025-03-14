@@ -138,6 +138,12 @@ ipcRenderer.on("play_mode", (event, ans) => {
   }
 });
 
+let time_now = 0;
+
+ipcRenderer.on("now", (event, ans) => {
+  time_now = ans;
+});
+
 ipcRenderer.on("DataRts", (event, ans) => {
   const data = ans.data;
 
@@ -253,23 +259,23 @@ ipcRenderer.on("DataRts", (event, ans) => {
   }
 
   chartdata[0].push({
-    name  : Date.now(),
-    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_online_num],
+    name  : time_now,
+    value : [(play_mode_num == 2 ? time_now : data.time), rts_online_num],
   });
 
   chartdata[1].push({
-    name  : Date.now(),
-    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_off_num],
+    name  : time_now,
+    value : [(play_mode_num == 2 ? time_now : data.time), rts_off_num],
   });
 
   chartdata[2].push({
-    name  : Date.now(),
-    value : [(play_mode_num == 2 ? Date.now() : data.time), rts_freeze_num],
+    name  : time_now,
+    value : [(play_mode_num == 2 ? time_now : data.time), rts_freeze_num],
   });
 
   chartdata[3].push({
-    name  : Date.now(),
-    value : [(play_mode_num == 2 ? Date.now() : data.time), trigger],
+    name  : time_now,
+    value : [(play_mode_num == 2 ? time_now : data.time), trigger],
   });
 
   chartdata[0] = limitDataPoints(chartdata[0]);
@@ -490,15 +496,15 @@ get_station_info();
 setInterval(get_station_info, 600000);
 
 setInterval(() => {
-  local_time.textContent = formatTime(Date.now());
-  lag = Date.now() - rts_time_num;
+  local_time.textContent = formatTime(time_now);
+  lag = time_now - rts_time_num;
   if (lag > 6000 && play_mode_name != "HTTP (重播)") {
     if (rts_off_time_num == 0) {
       rts_stats.textContent = `離線 | (${play_mode_name})`;
       rts_stats.className = "info-box-body abnormal";
-      rts_off_time_num = Date.now();
+      rts_off_time_num = time_now;
     } else {
-      rts_stats.textContent = `離線 | (${play_mode_name}) ${formatTimeDifference(Date.now() - rts_off_time_num)}`;
+      rts_stats.textContent = `離線 | (${play_mode_name}) ${formatTimeDifference(time_now - rts_off_time_num)}`;
       rts_stats.className = "info-box-body abnormal";
     }
   } else {
